@@ -7,7 +7,7 @@ file(COPY ${PROJECT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/$
 
 target_compile_options(jork PRIVATE /std:c++latest "/experimental:logsarif\\")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sarif)
-target_link_libraries(jork PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::SDL2_ttf SDL2::SDL2_image)
+target_link_libraries(jork PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2_ttf::SDL2_ttf SDL2_image::SDL2_image)
 
 target_compile_options(parser_fuzzer PRIVATE /std:c++latest /fsanitize=address /fsanitize=fuzzer /Zi)
 target_link_options(parser_fuzzer PRIVATE /INCREMENTAL:NO)
