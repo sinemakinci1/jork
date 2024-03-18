@@ -113,7 +113,7 @@ void jork::console::scroll_down() {
 }
 
 void jork::console::render() {
-    SDL_Color text_colour;
+    SDL_Color text_colour = { 255, 255, 255 };
 
     if (needs_render_) {
         auto start = top_;
