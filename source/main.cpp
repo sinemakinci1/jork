@@ -1,4 +1,4 @@
-﻿import jork.assets;
+import jork.assets;
 import jork.console;
 import jork.constants;
 import jork.parser;
@@ -37,7 +37,7 @@ public:
     std::string do_take(std::string object);
     std::string do_drop(std::string object);
     std::string do_inventory();
-    std::string do_help(std::string object);
+    std::string do_help(std::optional<std::string> object);
     std::string do_pet(std::string object);
 
     std::string handle_command(std::string input);
@@ -146,14 +146,16 @@ std::string game::do_inventory() {
     return ret;
 }
 
-std::string game::do_help(std::string area) {
+std::string game::do_help(std::optional<std::string> area) {
     return R"(The following commands are available (short versions in parentheses):
   (n)orth, (e)ast, (s)outh, (w)est
   (u)p, (d)own
   in, out
+
   
   (l)ook, e(x)amine <object>,
-  take <object>, drop <object>
+  take <object>, drop <object>,
+  pet <object>, 
   (i)nventory, wait (z))";
 }
 
@@ -190,7 +192,7 @@ std::string game::handle_command(std::string input) {
     case inventory:
         return do_inventory();
     case help:
-        return do_help(*com->object);
+        return do_help(com->object);
     case pet:
         return do_pet(*com->object);
     case unknown:
