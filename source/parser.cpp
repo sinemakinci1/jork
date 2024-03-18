@@ -80,7 +80,7 @@ std::expected<command, std::string> jork::parse_command(std::string cmd) {
                 return command{ c, commands[1] };
             }
             else {
-                return command{ c, std::string{nullptr, 1} };
+                return command{ c, std::nullopt };
             }
         case north:
         case south:
