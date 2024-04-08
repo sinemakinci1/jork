@@ -38,7 +38,9 @@ public:
     std::string do_drop(std::string object);
     std::string do_inventory();
     std::string do_help(std::optional<std::string> object);
-    std::string do_pet(std::string object);
+    std::string do_pet(std::string object){
+        //This function will perform the pet action on a animal, passed in as a string object. The output is a string of the result of petting the animal
+  }
 
     std::string handle_command(std::string input);
 
