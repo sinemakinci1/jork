@@ -160,9 +160,11 @@ std::string game::do_help(std::optional<std::string> area) {
 }
 
 std::string game::do_pet(std::string object) {
+    //if the object is a cat, you can pet the cat
     if ((object == "marshmallow" || object == "cat") && world_.level() == 0) {
         return loc(strings::pet_marshmallow);
     }
+    //if the object/animal is not a cat, it will output that you can't
     return loc(strings::cannot_pet_that);
 }
 
@@ -204,11 +206,11 @@ std::string game::handle_command(std::string input) {
 
 void game::loop() {
     SDL_Event e;
-    SDL_Color text_colour = { 0xFF, 0xFF, 0xFF, 0xFF };
+    SDL_Color property = { 0xFF, 0xFF, 0xFF, 0xFF };
 
     if (state_ == state::main_menu) {
         if (!menu_texture_->loaded()) {
-            menu_texture_->load_from_rendered_text("You May Only Go Down\n\nPress return to begin.", text_colour);
+            menu_texture_->load_from_rendered_text("You May Only Go Down\n\nPress return to begin.", property);
 
             SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
             SDL_RenderClear(renderer_);
@@ -287,6 +289,7 @@ game::~game() {
 void game_loop(void* g) {
     static_cast<game*>(g)->loop();
 }
+
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
