@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.8)
 
-add_executable (jork "main.cpp" "texture.cpp" "parser.cpp" "console.cpp" "strings.cpp" "assets.ixx" "console.ixx" "constants.ixx" "parser.ixx" "strings.ixx" "texture.ixx" "world.ixx")
+add_executable (jork "main.cpp" "texture.cpp" "parser.cpp" "console.cpp" "strings.cpp" "console.ixx" "constants.ixx" "parser.ixx" "strings.ixx" "texture.ixx" "world.ixx")
 add_executable (jorktests "main_test.cpp" "texture.cpp" "parser.cpp" "console.cpp" "strings.cpp" "assets.ixx" "console.ixx" "constants.ixx" "parser.ixx" "strings.ixx" "texture.ixx" "world.ixx")
 add_executable (parser_fuzzer "fuzzer_entry.cpp" "parser.cpp" "parser.ixx")
 

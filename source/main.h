@@ -162,7 +162,7 @@ std::string game::do_help(std::optional<std::string> area) {
 
 std::string game::do_pet(std::string object) {
     //if the object is a cat, you can pet the cat
-    if ((object == "marshmallow" || object == "cat") && world_.level() == 0) {
+    if ((object == "marshmallow" || object == "cat")) {
         return loc(strings::pet_marshmallow);
     }
 
