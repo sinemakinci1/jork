@@ -18,4 +18,6 @@ const std::unordered_map<const char*, const char*> jork::strings::g_english_tran
     { strings::item_does_not_exist, "That item does not exist." },
     { strings::pet_marshmallow, "You pet Marshmallow on his little head. He looks pleased" },
     { strings::cannot_pet_that, "You cannot pet that" },
+    { strings::pet_dog, "You pet the dog and it licks your hand" },
+    { strings::pet_elephant, "You pet the elephant and it trumpets" }
 };

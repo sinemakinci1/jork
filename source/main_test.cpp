@@ -1,4 +1,3 @@
-
 #include "main.h"
 #include <catch2/catch_test_macros.hpp>
 
@@ -12,8 +11,10 @@ TEST_CASE("GameTest") {
         REQUIRE(g.do_pet("cat") == loc(strings::pet_marshmallow));
 
         // Test petting "dog"
-        REQUIRE(g.do_pet("dog") == loc(strings::cannot_pet_that));
+        REQUIRE(g.do_pet("dog") == loc(strings::pet_dog));
+
+        // Test petting "elephant"
+        REQUIRE(g.do_pet("elephant") == loc(strings::pet_elephant));
 
     }
 }
-

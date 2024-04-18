@@ -162,13 +162,19 @@ std::string game::do_help(std::optional<std::string> area) {
 
 std::string game::do_pet(std::string object) {
     //if the object is a cat, you can pet the cat
-    if ((object == "marshmallow" || object == "cat")) {
+    if (object == "marshmallow" || object == "cat") {
         return loc(strings::pet_marshmallow);
     }
-
-    //if the object/animal is not a cat, it will output that you can't
+    //if the object is a dog, you can pet the dog
+    else if (object == "dog") {
+        return loc(strings::pet_dog);
+    }
+    //if the object is an elephant, you can pet the elephant
+    else if (object == "elephant") {
+		return loc(strings::pet_elephant);
+	}
+    //if the object/animal is not a cat or a dog, it will output that you can't
     return loc(strings::cannot_pet_that);
-
 }
 
 std::string game::handle_command(std::string input) {
@@ -208,14 +214,14 @@ std::string game::handle_command(std::string input) {
 }
 
 void game::loop() {
-    SDL_Event e;
-    SDL_Color property = { 0xFF, 0xFF, 0xFF, 0xFF };
+    SDL_Event game_event;
+    SDL_Color text_color = { 0xFF, 0x00, 0xFF, 0xFF };
 
     if (state_ == state::main_menu) {
         if (!menu_texture_->loaded()) {
-            menu_texture_->load_from_rendered_text("You May Only Go Down\n\nPress return to begin.", property);
+            menu_texture_->load_from_rendered_text("You May Only Go Down\n\nPress return to begin.", text_color);
 
-            SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+            SDL_SetRenderDrawColor(renderer_, 0, 0, 255, 255);
             SDL_RenderClear(renderer_);
 
             menu_texture_->render(200, 180);
@@ -223,11 +229,11 @@ void game::loop() {
             SDL_RenderPresent(renderer_);
         }
 
-        while (SDL_PollEvent(&e) != 0)
+        while (SDL_PollEvent(&game_event) != 0)
         {
-            if (e.type == SDL_KEYDOWN)
+            if (game_event.type == SDL_KEYDOWN)
             {
-                if (e.key.keysym.sym == SDLK_RETURN) {
+                if (game_event.key.keysym.sym == SDLK_RETURN) {
                     menu_texture_->free();
                     console_.reset_view();
                     state_ = state::normal_play;
@@ -237,44 +243,44 @@ void game::loop() {
     }
 
     if (state_ == state::normal_play) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_MOUSEWHEEL) {
-                if (e.wheel.y > 0) {
-                    for (auto i = 0; i < e.wheel.y; ++i) {
+        while (SDL_PollEvent(&game_event) != 0) {
+            if (game_event.type == SDL_MOUSEWHEEL) {
+                if (game_event.wheel.y > 0) {
+                    for (auto i = 0; i < game_event.wheel.y; ++i) {
                         console_.scroll_up();
                     }
                 }
-                else if (e.wheel.y < 0) {
-                    for (auto i = 0; i < -e.wheel.y; ++i) {
+                else if (game_event.wheel.y < 0) {
+                    for (auto i = 0; i < -game_event.wheel.y; ++i) {
                         console_.scroll_down();
                     }
                 }
             }
-            if (e.type == SDL_KEYDOWN) {
-                if (e.key.keysym.sym == SDLK_BACKSPACE) {
+            if (game_event.type == SDL_KEYDOWN) {
+                if (game_event.key.keysym.sym == SDLK_BACKSPACE) {
                     console_.reset_view();
                     console_.backspace();
                 }
-                else if (e.key.keysym.sym == SDLK_RETURN) {
+                else if (game_event.key.keysym.sym == SDLK_RETURN) {
                     auto command = console_.commit();
                     auto response = handle_command(command);
                     if (response.back() != '\n') response += '\n';
                     console_.display_text(response);
                 }
-                else if (e.key.keysym.sym == SDLK_UP) {
+                else if (game_event.key.keysym.sym == SDLK_UP) {
                     console_.begin_scrolling(console::scroll_direction::up);
                 }
-                else if (e.key.keysym.sym == SDLK_DOWN) {
+                else if (game_event.key.keysym.sym == SDLK_DOWN) {
                     console_.begin_scrolling(console::scroll_direction::down);
                 }
             }
-            else if (e.type == SDL_KEYUP) {
-                if (e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN) {
+            else if (game_event.type == SDL_KEYUP) {
+                if (game_event.key.keysym.sym == SDLK_UP || game_event.key.keysym.sym == SDLK_DOWN) {
                     console_.stop_scrolling();
                 }
             }
-            else if (e.type == SDL_TEXTINPUT) {
-                console_.input(e.text.text);
+            else if (game_event.type == SDL_TEXTINPUT) {
+                console_.input(game_event.text.text);
             }
         }
 
