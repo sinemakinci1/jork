@@ -38,7 +38,6 @@ export namespace jork {
         inline string_key item_does_not_exist { "item_does_not_exist" };
         inline string_key pet_marshmallow { "pet_marshmallow" };
         inline string_key cannot_pet_that { "cannot_pet_that" };
-        inline string_key pet_dog { "pet_dog" };
-        inline string_key pet_elephant{ "pet_elephant" };
+
     }
 }
