@@ -209,13 +209,13 @@ std::string game::handle_command(std::string input) {
 
 void game::loop() {
     SDL_Event e;
-    SDL_Color property = { 0xFF, 0xFF, 0xFF, 0xFF };
+    SDL_Color property = { 0x00, 0x00, 0xFF, 0 };
 
     if (state_ == state::main_menu) {
         if (!menu_texture_->loaded()) {
             menu_texture_->load_from_rendered_text("You May Only Go Down\n\nPress return to begin.", property);
 
-            SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 0xFF);
+            SDL_SetRenderDrawColor(renderer_, 255, 105, 180, 0);
             SDL_RenderClear(renderer_);
 
             menu_texture_->render(200, 180);
